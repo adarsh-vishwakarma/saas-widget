@@ -10,7 +10,7 @@ function App() {
   return (
    <>
     <div>
-      <Widget />
+      <Widget projectId="1" />
     </div>
    </>
   )
