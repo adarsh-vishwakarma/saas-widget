@@ -8,7 +8,7 @@ import { Button } from './ui/button';
 import tailwindStyles from "../index.css?inline";
 import supabase from "../supabaseClient";
 
-const Widget = () => {
+const Widget = ({ projectId }) => {
     const [rating, setRating] = useState(3);
     const [submitted, setSubmitted] = useState(false);
   
