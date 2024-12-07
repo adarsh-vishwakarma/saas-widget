@@ -1,20 +1,21 @@
-/** @type {import('tailwindcss').Config} */
+import tailwindcssAnimate from "tailwindcss-animate";
 
-module.exports = {
-  darkMode: ["class"], // Enable dark mode with class strategy
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: ["class"],
   content: [
-    "./pages/**/*.{js,jsx}",      // Include JavaScript/JSX files in pages directory
-    "./components/**/*.{js,jsx}", // Include JavaScript/JSX files in components directory
-    "./app/**/*.{js,jsx}",        // Include JavaScript/JSX files in app directory
-    "./src/**/*.{js,jsx}",        // Include JavaScript/JSX files in src directory
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
   ],
-  prefix: "", // No prefix for Tailwind classes
+  prefix: "",
   theme: {
     container: {
-      center: true, // Center container
-      padding: "2rem", // Add padding to container
+      center: true,
+      padding: "2rem",
       screens: {
-        "2xl": "1400px", // Max width for "2xl" breakpoint
+        "2xl": "1400px",
       },
     },
     extend: {
@@ -74,7 +75,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"), // Add the animate plugin
-  ],
+  plugins: [tailwindcssAnimate],
 };
