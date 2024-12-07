@@ -5,7 +5,7 @@ import path from "path";
 export default defineConfig({
   define: {
     "process.env": {
-      NODE_ENV: "production",
+      NODE_ENV: "production",  // Ensure this is production for optimized builds
     },
   },
   plugins: [react()],
@@ -16,17 +16,18 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: "./src/index.jsx",
-      name: "widget",
-      fileName: (format) => `widget.${format}.js`,
+      entry: "./src/index.jsx",  // Main entry point for your library
+      name: "Widget",            // Name of the global variable exposed
+      fileName: (format) => `widget.${format}.js`,  // Output filename pattern
+      formats: ["umd", "es"],  // Output both UMD and ES modules for flexibility
     },
-    target: "esnext",
+    target: "esnext",   // Modern JavaScript output
     rollupOptions: {
-      external: ["react", "react-dom"], // Externalize peer dependencies
+      external: ["react", "react-dom"],  // Ensure react and react-dom are not bundled
       output: {
         globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
+          react: "React",       // React will be exposed globally as 'React'
+          "react-dom": "ReactDOM",  // ReactDOM will be exposed globally as 'ReactDOM'
         },
       },
     },
