@@ -1,36 +1,39 @@
-import React, { useState } from 'react'
-import { Label } from './ui/label';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { Separator } from './ui/separator';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import { Button } from './ui/button';
+import React, { useState } from "react";
+import { Label } from "./ui/label";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { Separator } from "./ui/separator";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Button } from "./ui/button";
 import tailwindStyles from "../index.css?inline";
 import supabase from "../supabaseClient";
 
 const Widget = ({ projectId }) => {
-    const [rating, setRating] = useState(3);
-    const [submitted, setSubmitted] = useState(false);
-  
-    const onSelectStar = (index) => {
-      setRating(index + 1);
-    };
+  const [rating, setRating] = useState(3);
+  const [submitted, setSubmitted] = useState(false);
 
-    const submit = async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const data = {
-        p_project_id: projectId,
-        p_user_name: form.name.value,
-        p_user_email: form.email.value,
-        p_message: form.feedback.value,
-        p_rating: rating,
-      };
-      // console.log(data)
-      const { data: returnedData, error } = await supabase.rpc("add_feedback", data);
-      setSubmitted(true);
-      // console.log(returnedData);
+  const onSelectStar = (index) => {
+    setRating(index + 1);
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = {
+      p_project_id: projectId,
+      p_user_name: form.name.value,
+      p_user_email: form.email.value,
+      p_message: form.feedback.value,
+      p_rating: rating,
     };
+    // console.log(data)
+    const { data: returnedData, error } = await supabase.rpc(
+      "add_feedback",
+      data
+    );
+    setSubmitted(true);
+    // console.log(returnedData);
+  };
   return (
     <>
       <style>{tailwindStyles}</style>
@@ -46,26 +49,22 @@ const Widget = ({ projectId }) => {
             <style>{tailwindStyles}</style>
             {submitted ? (
               <div>
-                <h3 className="text-lg font-bold">Thank you for your feedback!</h3>
+                <h3 className="text-lg font-bold">
+                  Thank you for your feedback!
+                </h3>
                 <p className="mt-4">
-                  We appreciate your feedback. It helps us improve our product and provide better
-                  service to our customers.
+                  We appreciate your feedback. It helps us improve our product
+                  and provide better service to our customers.
                 </p>
               </div>
             ) : (
               <div>
                 <h3 className="text-lg font-bold">Send us your feedback</h3>
-                <form
-                  className="space-y-2"
-                  onSubmit={submit}
-                >
+                <form className="space-y-2" onSubmit={submit}>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Name</Label>
-                      <Input
-                        id="name"
-                        placeholder="Enter your name"
-                      />
+                      <Input id="name" placeholder="Enter your name" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
@@ -90,7 +89,9 @@ const Widget = ({ projectId }) => {
                         <StarIcon
                           key={index}
                           className={`h-5 w-5 cursor-pointer ${
-                            rating > index ? "fill-primary" : "fill-muted stroke-muted-foreground"
+                            rating > index
+                              ? "fill-primary"
+                              : "fill-muted stroke-muted-foreground"
                           }`}
                           onClick={() => onSelectStar(index)}
                         />
@@ -116,46 +117,46 @@ const Widget = ({ projectId }) => {
         </Popover>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Widget
+export default Widget;
 
 function StarIcon(props) {
-    return (
-      <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </svg>
-    );
-  }
-  
-  function MessageCircleIcon(props) {
-    return (
-      <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="lucide lucide-message-circle"
-      >
-        <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-      </svg>
-    );
-  }
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
+}
+
+function MessageCircleIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="lucide lucide-message-circle"
+    >
+      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+    </svg>
+  );
+}
